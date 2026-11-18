@@ -1,0 +1,40 @@
+/*
+ * scheduler.h
+ *
+ *  Created on: Nov 9, 2026
+ *      Author: Admin
+ */
+
+#ifndef INC_SCHEDULER_H_
+#define INC_SCHEDULER_H_
+
+#include <stdint.h>
+
+/* So luong task toi da */
+#define SCH_MAX_TASKS 10
+
+/* Cau truc quan ly mot Task */
+typedef struct {
+    void (*pTask)(void);   // Con tro den ham callback
+    uint32_t Delay;        // Thoi gian cho den khi task chay
+    uint32_t Period;       // Chu ky lap lai
+    uint8_t RunMe;         // Co bao task da den luc chay
+    uint32_t TaskID;       // ID cua task
+} sTask;
+
+/* Cac ham cua Scheduler */
+void SCH_Init(void);
+
+void SCH_Update(void);
+
+void SCH_Dispatch_Tasks(void);
+
+uint32_t SCH_Add_Task(
+    void (*pFunction)(void),
+    uint32_t DELAY,
+    uint32_t PERIOD
+);
+
+uint8_t SCH_Delete_Task(uint32_t taskID);
+
+#endif /* INC_SCHEDULER_H_ */
